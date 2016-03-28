@@ -24,6 +24,9 @@
 <div id="container"></div>
 <script type="text/javascript" src="../../js/awe-loader-min.js"></script>
 <script type="text/javascript">
+
+console.log("hej")
+
   window.addEventListener('load', function() {
     window.awe.init({
       device_type: awe.AUTO_DETECT_DEVICE_TYPE,
@@ -49,13 +52,25 @@
             ],
             success: function() {
 							awe.setup_scene();
-			        awe.pois.add({ id:'poi_1', position: { x:0, y:0, z:10000 }, visible: false });
+			        awe.pois.add({ id:'page_64', position: { x:0, y:0, z:10000 }, visible: false });
 			        awe.projections.add({
-			          id:'projection_1',
+			          id:'projection_64',
 								geometry: { shape: 'cube', x:240, y:1, z:180 },
 			          material:{ type: 'phong', color: 0xFFFFFF },
                 texture: { path: 'article.jpg' },
-			        }, { poi_id: 'poi_1' });
+			        }, { poi_id: 'page_64' });
+
+
+							awe.pois.add({ id:'page_22', position: { x:0, y:0, z:10000 }, visible: false });
+							awe.projections.add({
+								id:'projection_22',
+								geometry: { shape: 'cube', x:240, y:1, z:180 },
+								material:{ type: 'phong', color: 0xFFFFFF },
+								texture: { path: 'lego.jpeg' },
+							}, { poi_id: 'page_22' });
+
+							var currentlyVisible;
+
 			        awe.events.add([{
 								id: 'ar_tracking_marker',
 								device_types: {
@@ -70,27 +85,67 @@
 								},
 								handler: function(event) {
 									if (event.detail) {
-										if (event.detail['64']) { // we are mapping marker #64 to this projection
+										console.log(currentlyVisible);
+										var codes = Object.keys(event.detail);
+
+										if(codes.length > 0){
+											var code = 	codes[0];
+											var poi = 'page_' + code
+											console.log("Found codes! (will select the first)", codes, code, poi);
+
+
 											awe.pois.update({
 												data: {
 													visible: true,
                           position: { x:0, y:0, z:0 },
-													matrix: event.detail['64'].transform
+													matrix: event.detail[code].transform
 												},
 												where: {
-													id: 'poi_1'
+													id: poi
 												}
 											});
-										}
-										else {
-											awe.pois.update({
-												data: {
-													visible: false
-												},
-												where: {
-													id: 'poi_1'
-												}
-											});
+
+											var hide;
+											if(code == 'page_22'){
+												hide = 'page_64';
+											} else {
+												hide = 'page_22';
+
+											}
+											if(currentlyVisible){
+												awe.pois.update({
+													data: {
+														visible: false
+													},
+													where: {
+ 													id: hide
+													}
+												});
+											}
+
+
+										} else {
+
+
+
+												awe.pois.update({
+													data: {
+														visible: false
+													},
+													where: {
+														id: 'page_22'
+													}
+												});
+												awe.pois.update({
+													data: {
+														visible: false
+													},
+													where: {
+														id: 'page_64'
+													}
+												});
+
+
 										}
 										awe.scene_needs_rendering = 1;
 									}
