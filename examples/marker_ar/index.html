@@ -85,13 +85,11 @@ console.log("hej")
 								},
 								handler: function(event) {
 									if (event.detail) {
-										console.log(currentlyVisible);
 										var codes = Object.keys(event.detail);
 
 										if(codes.length > 0){
 											var code = 	codes[0];
 											var poi = 'page_' + code
-											console.log("Found codes! (will select the first)", codes, code, poi);
 
 
 											awe.pois.update({
