@@ -55,18 +55,18 @@ console.log("hej")
 			        awe.pois.add({ id:'page_64', position: { x:0, y:0, z:10000 }, visible: false });
 			        awe.projections.add({
 			          id:'projection_64',
-								geometry: { shape: 'cube', x:240, y:1, z:180 },
+								geometry: { shape: 'cube', x:350, y:1, z:250 },
 			          material:{ type: 'phong', color: 0xFFFFFF },
-                texture: { path: 'article.jpg' },
+                texture: { path: 'article.png' },
 			        }, { poi_id: 'page_64' });
 
 
 							awe.pois.add({ id:'page_22', position: { x:0, y:0, z:10000 }, visible: false });
 							awe.projections.add({
 								id:'projection_22',
-								geometry: { shape: 'cube', x:240, y:1, z:180 },
+								geometry: { shape: 'cube', x:350, y:1, z:250 },
 								material:{ type: 'phong', color: 0xFFFFFF },
-								texture: { path: 'lego.jpeg' },
+								texture: { path: 'article2.png' },
 							}, { poi_id: 'page_22' });
 
 							var currentlyVisible;
@@ -87,66 +87,46 @@ console.log("hej")
 									if (event.detail) {
 										var codes = Object.keys(event.detail);
 
-										if(codes.length > 0){
-											var code = 	codes[0];
-											var poi = 'page_' + code
+										var show = [];
+										var hide = [];
 
+										if(codes.indexOf("22") > -1){
+											show.push("22");
+										} else {
+											hide.push("22");
+										}
 
+										if(codes.indexOf("64") > -1){
+											show.push("64");
+										} else {
+											hide.push("64");
+										}
+
+										show.forEach(function(id){
 											awe.pois.update({
 												data: {
 													visible: true,
                           position: { x:0, y:0, z:0 },
-													matrix: event.detail[code].transform
+													matrix: event.detail[id].transform
 												},
 												where: {
-													id: poi
+													id: "page_"+id
 												}
 											});
+										});
 
-											var hide;
-											if(code == 'page_22'){
-												hide = 'page_64';
-											} else {
-												hide = 'page_22';
-
-											}
-											if(currentlyVisible){
-												awe.pois.update({
-													data: {
-														visible: false
-													},
-													where: {
- 													id: hide
-													}
-												});
-											}
-
-
-										} else {
-
-
-
-												awe.pois.update({
-													data: {
-														visible: false
-													},
-													where: {
-														id: 'page_22'
-													}
-												});
-												awe.pois.update({
-													data: {
-														visible: false
-													},
-													where: {
-														id: 'page_64'
-													}
-												});
-
-
+										hide.forEach(function(id){
+											awe.pois.update({
+												data: {
+													visible: false
+												},
+												where: {
+													id: "page_"+id
+												}
+											});
+										});
 										}
 										awe.scene_needs_rendering = 1;
-									}
 								}
 							}])
 			      },
