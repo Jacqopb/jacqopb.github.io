@@ -52,19 +52,21 @@ console.log("hej")
             ],
             success: function() {
 							awe.setup_scene();
-			        awe.pois.add({ id:'page_64', position: { x:0, y:0, z:10000 }, visible: false });
+			        awe.pois.add({ id:'page_64', visible: false });
 			        awe.projections.add({
 			          id:'projection_64',
-								geometry: { shape: 'cube', x:350, y:1, z:250 },
+								position: { x:20, y:0, z:0 },
+								geometry: { shape: 'cube', x:330, y:1, z:250 },
 			          material:{ type: 'phong', color: 0xFFFFFF },
                 texture: { path: 'article.png' },
 			        }, { poi_id: 'page_64' });
 
 
-							awe.pois.add({ id:'page_22', position: { x:0, y:0, z:10000 }, visible: false });
+							awe.pois.add({ id:'page_22', visible: false });
 							awe.projections.add({
 								id:'projection_22',
-								geometry: { shape: 'cube', x:350, y:1, z:250 },
+								position: { x:20, y:0, z:0 },
+								geometry: { shape: 'cube', x:330, y:1, z:250 },
 								material:{ type: 'phong', color: 0xFFFFFF },
 								texture: { path: 'article2.png' },
 							}, { poi_id: 'page_22' });
@@ -106,7 +108,6 @@ console.log("hej")
 											awe.pois.update({
 												data: {
 													visible: true,
-                          position: { x:0, y:0, z:0 },
 													matrix: event.detail[id].transform
 												},
 												where: {
