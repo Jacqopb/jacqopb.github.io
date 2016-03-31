@@ -56,7 +56,8 @@ console.log("hej")
 			        awe.projections.add({
 			          id:'projection_64',
 								position: { x:20, y:0, z:0 },
-								geometry: { shape: 'cube', x:330, y:1, z:250 },
+								rotation: { x:90, y:180, z:180},
+								geometry: { shape: 'plane', width:330, height:250 },
 			          material:{ type: 'phong', color: 0xFFFFFF },
                 texture: { path: 'article.png' },
 			        }, { poi_id: 'page_64' });
@@ -66,9 +67,10 @@ console.log("hej")
 							awe.projections.add({
 								id:'projection_22',
 								position: { x:20, y:0, z:0 },
-								geometry: { shape: 'cube', x:330, y:1, z:250 },
+								rotation: { x:90, y:180, z:180},
+								geometry: { shape: 'plane', width:330, height:250 },
 								material:{ type: 'phong', color: 0xFFFFFF },
-								texture: { path: 'article2.png' },
+								texture: { path: 'reklam.webm' , loop:true, muted: true},
 							}, { poi_id: 'page_22' });
 
 							var currentlyVisible;
